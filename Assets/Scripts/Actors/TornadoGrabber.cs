@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Actors
@@ -12,11 +12,11 @@ namespace Actors
 		[SerializeField] private Tornado tornado;
 		[SerializeField] private PlayerAvatar player;
 
-		private HashSet<GameObject> orbitingObjects;
+		private HashSet<GrabbableObject> orbitingObjects;
 
 		private void Start()
 		{
-			this.orbitingObjects = new HashSet<GameObject>();
+			this.orbitingObjects = new HashSet<GrabbableObject>();
 		}
 
 		private void Update()
@@ -27,14 +27,24 @@ namespace Actors
 
 		private void FixedUpdate()
 		{
-			foreach (GameObject go in this.orbitingObjects)
+			foreach (GameObject go in this.orbitingObjects.Select(grabbable => grabbable.gameObject))
 			{
 				float height = go.GetHashCode() % 200 + 100;
+				float radius = go.GetHashCode() % 80 + 30;
+				float rotationSpeed = go.GetHashCode() % 5 + 2;
 				float angle = go.GetHashCode() % 2*Mathf.PI;
 
-				Vector3 localPos = new Vector3(100 * Mathf.Cos(Time.fixedTime*2 + angle), height, 100 * Mathf.Sin(Time.fixedTime*2 + angle));
+				Vector3 localPos = new Vector3(
+					radius * Mathf.Cos(Time.fixedTime * rotationSpeed + angle),
+					height,
+					radius * Mathf.Sin(Time.fixedTime * rotationSpeed + angle)
+				);
 
-				go.transform.position = gameObject.transform.position + localPos;
+				go.transform.position = Vector3.Lerp(
+					go.transform.position,
+					gameObject.transform.position + localPos,
+					0.15f
+				);
 			}
 		}
 
@@ -42,12 +52,15 @@ namespace Actors
 		{
 			if (!this.tornado.IsRageActive()) return;
 
-			Debug.Log(other.gameObject.name);
-			this.orbitingObjects.Add(other.gameObject);
+			GrabbableObject grabbable = other.GetComponent<GrabbableObject>();
+			this.orbitingObjects.Add(grabbable);
+			grabbable.Grab(this.player.GetPlayerID());
 		}
 
 		private void ReleaseOrbitingObjects()
 		{
+			foreach (GrabbableObject grabbable in this.orbitingObjects)
+				grabbable.Release();
 			this.orbitingObjects.Clear();
 		}
 	}
