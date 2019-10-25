@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 5837271962202662318}
   - component: {fileID: 5837271962202662319}
+  - component: {fileID: 5837271962202662316}
   - component: {fileID: 5837271962202662317}
   - component: {fileID: 5837271962202662314}
-  - component: {fileID: 5837271962202662316}
+  - component: {fileID: 3236317689240944041}
   m_Layer: 0
   m_Name: TornadoAvatar
   m_TagString: Untagged
@@ -52,6 +53,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!136 &5837271962202662316
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5837271962202662315}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 100
+  m_Height: 300
+  m_Direction: 1
+  m_Center: {x: 0, y: 25, z: 0}
 --- !u!114 &5837271962202662317
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67,6 +82,7 @@ MonoBehaviour:
   rageParticles: {fileID: 5837271962314521477}
   cursorParticles: {fileID: 7766501354617436034}
   rigidbody: {fileID: 5837271962202662319}
+  rangeTrigger: {fileID: 5837271962202662316}
   turnRate: 80
   maxSpeed: 100
 --- !u!114 &5837271962202662314
@@ -83,20 +99,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tornado: {fileID: 5837271962202662317}
   playerColor: {r: 0, g: 1, b: 0, a: 1}
---- !u!136 &5837271962202662316
-CapsuleCollider:
+--- !u!114 &3236317689240944041
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5837271962202662315}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 100
-  m_Height: 300
-  m_Direction: 1
-  m_Center: {x: 0, y: 25, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9116946268a4bf9bad9f76c9eb6baa0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tornado: {fileID: 5837271962202662317}
+  player: {fileID: 5837271962202662314}
 --- !u!1 &5837271962846440971
 GameObject:
   m_ObjectHideFlags: 0
@@ -109,7 +125,7 @@ GameObject:
   - component: {fileID: 5837271962846440973}
   - component: {fileID: 5837271962846440970}
   m_Layer: 0
-  m_Name: Main Camera
+  m_Name: Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

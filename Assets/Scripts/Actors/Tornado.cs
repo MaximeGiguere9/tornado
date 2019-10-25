@@ -10,6 +10,7 @@ namespace Actors
 		[SerializeField] private ParticleSystem rageParticles;
 		[SerializeField] private ParticleSystem cursorParticles;
 		[SerializeField] private new Rigidbody rigidbody;
+		[SerializeField] private Collider rangeTrigger;
 		[SerializeField] private float turnRate;
 		[SerializeField] private float maxSpeed;
 		private Vector3 moveDirection;
@@ -20,6 +21,8 @@ namespace Actors
 			this.rigidbody.AddForce(this.moveDirection * this.turnRate);
 			this.rigidbody.velocity = Vector3.ClampMagnitude(this.rigidbody.velocity, this.maxSpeed);
 		}
+
+		public bool IsRageActive() => this.rageActive;
 
 		public void SetRageActive(bool active)
 		{
@@ -35,7 +38,8 @@ namespace Actors
 				this.rageParticles.Stop();
 				this.rageParticles.Clear();
 			}
-				
+
+			this.rangeTrigger.enabled = active;
 		}
 
 		public void SetCursorColor(Color color)
