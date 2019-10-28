@@ -5,22 +5,22 @@ namespace Actors
 	public class GrabbableObject : MonoBehaviour
 	{
 		[SerializeField] private new Rigidbody rigidbody;
-		[SerializeField] private new Collider collider;
+		[SerializeField] private BoxCollider boxCollider;
 		[SerializeField] private int pointValue;
 		[SerializeField] private bool autoCalculateValue;
 
 		private int playerID;
 
-		private void OnValidate()
+		private void Awake()
 		{
-			if (this.autoCalculateValue)
-				this.pointValue = Mathf.CeilToInt(collider.bounds.size.magnitude);
-		}
+			GameObject go = Instantiate(RandomObjectMeshManager.Instance.GetRandomObject(), transform, false);
+			Bounds bounds = go.GetComponent<Renderer>().bounds;
 
-		private void Start()
-		{
-			if(this.autoCalculateValue)
-				this.pointValue = Mathf.CeilToInt(collider.bounds.size.magnitude);
+			this.boxCollider.center = transform.InverseTransformPoint(bounds.center);
+			this.boxCollider.size = bounds.size;
+
+			if (this.autoCalculateValue)
+				this.pointValue = Mathf.CeilToInt(this.boxCollider.size.magnitude);
 		}
 
 		public int GetPointValue() => this.pointValue;

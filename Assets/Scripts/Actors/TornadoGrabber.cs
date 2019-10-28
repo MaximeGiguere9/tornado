@@ -51,10 +51,10 @@ namespace Actors
 		private void OnTriggerEnter(Collider other)
 		{
 			if (!this.tornado.IsRageActive()) return;
-
+			/*
 			GrabbableObject grabbable = other.GetComponent<GrabbableObject>();
 			this.orbitingObjects.Add(grabbable);
-			grabbable.Grab(this.player.GetPlayerID());
+			grabbable.Grab(this.player.GetPlayerID());*/
 		}
 
 		private void ReleaseOrbitingObjects()
