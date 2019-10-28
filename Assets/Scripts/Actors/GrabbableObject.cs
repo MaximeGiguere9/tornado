@@ -19,6 +19,8 @@ namespace Actors
 			this.boxCollider.center = transform.InverseTransformPoint(bounds.center);
 			this.boxCollider.size = bounds.size;
 
+			transform.localScale = Random.Range(0.6f, 1.6f) * Vector3.one;
+
 			if (this.autoCalculateValue)
 				this.pointValue = Mathf.CeilToInt(this.boxCollider.size.magnitude);
 		}
