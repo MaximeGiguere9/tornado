@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -12,14 +13,16 @@ namespace Actors
 		[SerializeField] private ParticleSystem rageParticles;
 		[SerializeField] private ParticleSystem cursorParticles;
 		[SerializeField] private new Rigidbody rigidbody;
-		[SerializeField] private Collider rangeTrigger;
+		[SerializeField] private CapsuleCollider rangeTrigger;
 		[SerializeField] private float turnRate;
 		[SerializeField] private float maxSpeed;
-		[SerializeField] private PlayerAvatar player;
 
 		private HashSet<GrabbableObject> orbitingObjects;
 		private Vector3 moveDirection;
 		private bool isRageActive = true;
+
+		public event EventHandler<GrabbableObject> ObjectGrabbedEvent;
+		public event EventHandler ObjectsReleasedEvent;
 
 		private void Start()
 		{
@@ -31,27 +34,6 @@ namespace Actors
 			//move tornado
 			this.rigidbody.AddForce(this.moveDirection * this.turnRate);
 			this.rigidbody.velocity = Vector3.ClampMagnitude(this.rigidbody.velocity, this.maxSpeed);
-
-			//define orbit of each object randomly based on their hash code
-			foreach (GameObject go in this.orbitingObjects.Select(grabbable => grabbable.gameObject))
-			{
-				float height = go.GetHashCode() % 200 + 100;
-				float radius = go.GetHashCode() % 80 + 30;
-				float rotationSpeed = go.GetHashCode() % 5 + 2;
-				float angle = go.GetHashCode() % 2 * Mathf.PI;
-
-				Vector3 localPos = new Vector3(
-					radius * Mathf.Cos(Time.fixedTime * rotationSpeed + angle),
-					height,
-					radius * Mathf.Sin(Time.fixedTime * rotationSpeed + angle)
-				);
-
-				go.transform.position = Vector3.Lerp(
-					go.transform.position,
-					gameObject.transform.position + localPos,
-					0.15f
-				);
-			}
 		}
 
 		private void OnTriggerEnter(Collider other)
@@ -63,7 +45,16 @@ namespace Actors
 			if (grabbable == null) return;
 
 			this.orbitingObjects.Add(grabbable);
-			grabbable.Grab(this.player.GetPlayerID());
+			grabbable.Grab(this);
+			ObjectGrabbedEvent?.Invoke(this, grabbable);
+		}
+
+		private void ReleaseOrbitingObjects()
+		{
+			foreach (GrabbableObject grabbable in this.orbitingObjects)
+				grabbable.Release();
+			this.orbitingObjects.Clear();
+			ObjectsReleasedEvent?.Invoke(this, null);
 		}
 
 		public bool IsRageActive() => this.isRageActive;
@@ -99,12 +90,12 @@ namespace Actors
 			this.moveDirection = this.moveDirection.normalized;
 		}
 
-		private void ReleaseOrbitingObjects()
-		{
-			foreach (GrabbableObject grabbable in this.orbitingObjects)
-				grabbable.Release();
-			this.orbitingObjects.Clear();
-		}
+		public float GetHeight() => this.rangeTrigger.height + this.rangeTrigger.center.y;
+
+		public float GetRadius() => this.rangeTrigger.radius;
+
+		public Vector3 GetPosition() => gameObject.transform.position;
+
 	}
 }
 
