@@ -2,11 +2,14 @@
 
 namespace Actors
 {
-	public class GrabbableObjectGenerator : MonoBehaviour
+	/// <summary>
+	/// Defines an area in which objects are generated
+	/// </summary>
+	public class WorldGenerator : MonoBehaviour
 	{
 		[SerializeField] private GameObject grabbableObjectPrefab;
-		[SerializeField] private int objectCount;
-		[SerializeField] private float playArea;
+		[SerializeField] private int objectCount = 20;
+		[SerializeField] private float playArea = 200;
 
 		private void OnValidate()
 		{
