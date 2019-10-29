@@ -17,17 +17,12 @@ namespace Actors
 		[SerializeField] private float turnRate;
 		[SerializeField] private float maxSpeed;
 
-		private HashSet<GrabbableObject> orbitingObjects;
+		private readonly HashSet<GrabbableObject> orbitingObjects = new HashSet<GrabbableObject>();
 		private Vector3 moveDirection;
 		private bool isRageActive = true;
 
 		public event EventHandler<GrabbableObject> ObjectGrabbedEvent;
 		public event EventHandler ObjectsReleasedEvent;
-
-		private void Start()
-		{
-			this.orbitingObjects = new HashSet<GrabbableObject>();
-		}
 
 		private void FixedUpdate()
 		{

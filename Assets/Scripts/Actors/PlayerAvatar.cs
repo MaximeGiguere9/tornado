@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Actors
 {
@@ -10,6 +11,11 @@ namespace Actors
 		[SerializeField] private Tornado tornado;
 		[SerializeField] private Color playerColor;
 		[SerializeField] private int playerID;
+
+		private void Awake()
+		{
+			this.tornado.SetRageActive(false);
+		}
 
 		private void Start()
 		{
