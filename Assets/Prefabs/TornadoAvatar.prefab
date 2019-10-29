@@ -63,9 +63,9 @@ CapsuleCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 30
-  m_Height: 80
+  m_Height: 100
   m_Direction: 1
-  m_Center: {x: 0, y: 10, z: 0}
+  m_Center: {x: 0, y: 20, z: 0}
 --- !u!114 &5837271962202662317
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -84,7 +84,6 @@ MonoBehaviour:
   rangeTrigger: {fileID: 5837271962202662316}
   turnRate: 80
   maxSpeed: 100
-  player: {fileID: 5837271962202662314}
 --- !u!114 &5837271962202662314
 MonoBehaviour:
   m_ObjectHideFlags: 0
