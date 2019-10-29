@@ -82,8 +82,8 @@ MonoBehaviour:
   cursorParticles: {fileID: 7766501354617436034}
   rigidbody: {fileID: 5837271962202662319}
   rangeTrigger: {fileID: 5837271962202662316}
-  turnRate: 80
-  maxSpeed: 100
+  turnRate: 40
+  maxSpeed: 50
 --- !u!114 &5837271962202662314
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112,7 +112,7 @@ GameObject:
   - component: {fileID: 6828099292229057052}
   m_Layer: 0
   m_Name: Camera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

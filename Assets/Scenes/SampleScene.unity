@@ -387,25 +387,5 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5837271962202662317, guid: 088d8ea8f74f12c498c7aae5b3b67768,
-        type: 3}
-      propertyPath: maxSpeed
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 5837271962202662317, guid: 088d8ea8f74f12c498c7aae5b3b67768,
-        type: 3}
-      propertyPath: turnRate
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 6041600084554180428, guid: 088d8ea8f74f12c498c7aae5b3b67768,
-        type: 3}
-      propertyPath: m_TagString
-      value: MainCamera
-      objectReference: {fileID: 0}
-    - target: {fileID: 5837271962202662316, guid: 088d8ea8f74f12c498c7aae5b3b67768,
-        type: 3}
-      propertyPath: m_Radius
-      value: 30
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 088d8ea8f74f12c498c7aae5b3b67768, type: 3}
