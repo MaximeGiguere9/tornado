@@ -104,6 +104,8 @@ MonoBehaviour:
   - {r: 1, g: 1, b: 0, a: 1}
   - {r: 0, g: 1, b: 1, a: 1}
   - {r: 1, g: 0, b: 1, a: 1}
+  maxRageTime: 5
+  rageCooldown: 3
 --- !u!1 &6041600084554180428
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,6 +10,8 @@ namespace Actors
 	{
 		[SerializeField] private Tornado tornado;
 		[SerializeField] private Color[] playerColors;
+		[SerializeField] private float maxRageTime = 5;
+		[SerializeField] private float rageCooldown = 3;
 
 		private IGameMode gameMode;
 		private int playerID;
@@ -17,6 +19,10 @@ namespace Actors
 		private float totalScore = 0;
 		private float currentCombo = 0;
 		private float currentMultiplier = 1;
+
+		private float currentRageMeter;
+		private float currentRageCooldown;
+		private bool canUseRage;
 
 		private void Awake()
 		{
@@ -30,9 +36,23 @@ namespace Actors
 		
 		private void Update()
 		{
-			bool a = this.gameMode.IsGameActive();
-			this.tornado.SetRageActive(a && Input.GetButton("Fire1"));
-			this.tornado.SetMoveDirection(a ? new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")) : Vector2.zero);
+			if (this.tornado.IsRageActive())
+			{
+				this.currentRageMeter -= Time.deltaTime;
+			}
+			else
+			{
+				this.currentRageMeter =
+					Mathf.Clamp(this.currentRageMeter + Time.deltaTime, 0, this.maxRageTime);
+				this.currentRageCooldown =
+					Mathf.Clamp(this.currentRageCooldown - Time.deltaTime, -1, this.currentRageCooldown);
+			}
+
+			SetRageState();
+
+			this.tornado.SetMoveDirection(this.gameMode.IsGameActive()
+				? new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"))
+				: Vector2.zero);
 		}
 
 		private void OnDestroy()
@@ -61,5 +81,25 @@ namespace Actors
 		public int GetCurrentCombo() => Mathf.FloorToInt(this.currentCombo * this.currentMultiplier);
 
 		public float GetCurrentMultiplier() => this.currentMultiplier;
+
+		private void SetRageState()
+		{
+			bool a = this.gameMode.IsGameActive();
+			bool b = this.currentRageMeter > 0;
+			bool c = this.currentRageCooldown <= 0;
+
+			this.canUseRage = a && b && c;
+
+			bool d = this.canUseRage && Input.GetButton("Fire1");
+
+			if (this.tornado.IsRageActive() && !d)
+				this.currentRageCooldown = this.rageCooldown;
+
+			this.tornado.SetRageActive(d);
+		}
+
+		public float GetRagePercentage() => this.currentRageMeter / this.maxRageTime;
+
+		public bool CanUseRage() => this.canUseRage;
 	}
 }
