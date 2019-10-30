@@ -44,17 +44,9 @@ namespace Actors
 			float rotationSpeed = GetHashCode() % 8 + 4;
 			float angle = GetHashCode() % 2 * Mathf.PI;
 
-			Vector3 localPos = new Vector3(
-				radius * Mathf.Cos(GetHashCode() + Time.fixedTime * rotationSpeed + angle),
-				height,
-				radius * Mathf.Sin(GetHashCode() + Time.fixedTime * rotationSpeed + angle)
-			);
-
-			transform.position = Vector3.Lerp(
-				transform.position,
-				this.source.GetPosition() + localPos,
-				0.15f
-			);
+			float offset = GetHashCode() + Time.fixedTime * rotationSpeed + angle;
+			Vector3 localPos = new Vector3(radius * Mathf.Cos(offset), height, radius * Mathf.Sin(offset));
+			transform.position = Vector3.Lerp(transform.position, this.source.GetPosition() + localPos, 0.15f);
 		}
 
 		public int GetPointValue() => this.pointValue;
