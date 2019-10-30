@@ -13,18 +13,14 @@ namespace GameModes
 		[SerializeField] private float maxTime;
 
 		public bool IsGameActive { get; private set; }
+		public float CountDownTime => this.countDown;
 		public float RemainingTime { get; private set; }
 		public float TotalScore { get; set; }
 		public float CurrentScore { get; set; }
-		public float CurrentCombo { get; set; }
+		public float CurrentCombo { get; set; } = 1;
 
 		public event EventHandler GameStartEvent;
 		public event EventHandler GameEndEvent;
-
-		private void Start()
-		{
-			StartGame();
-		}
 
 		public void StartGame()
 		{
@@ -38,14 +34,6 @@ namespace GameModes
 		{
 			if (this.IsGameActive) yield break;
 			this.IsGameActive = true;
-
-			float init = this.countDown;
-			while (init > 0)
-			{
-				init -= Time.deltaTime;
-				yield return null;
-			}
-
 			GameStartEvent?.Invoke(this, null);
 
 			this.RemainingTime = this.maxTime;

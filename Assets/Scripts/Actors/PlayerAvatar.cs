@@ -18,19 +18,16 @@ namespace Actors
 		{
 			this.gameMode = GameStateManager.GetCurrentGame();
 			this.tornado.SetRageActive(false);
+			this.tornado.SetCursorColor(this.playerColor);
 			this.tornado.ObjectGrabbedEvent += OnObjectGrabbed;
 			this.tornado.ObjectsReleasedEvent += OnObjectsReleased;
 		}
-
-		private void Start()
-		{
-			this.tornado.SetCursorColor(this.playerColor);
-		}
-
+		
 		private void Update()
 		{
-			this.tornado.SetRageActive(Input.GetButton("Fire1"));
-			this.tornado.SetMoveDirection(new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")));
+			bool a = this.gameMode.IsGameActive;
+			this.tornado.SetRageActive(a && Input.GetButton("Fire1"));
+			this.tornado.SetMoveDirection(a ? new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")) : Vector2.zero);
 		}
 
 		private void OnDestroy()

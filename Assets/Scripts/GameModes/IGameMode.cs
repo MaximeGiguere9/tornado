@@ -4,6 +4,7 @@
 	{
 		bool IsGameActive { get; }
 		float RemainingTime { get; }
+		float CountDownTime { get; }
 		float TotalScore { get; set; }
 		float CurrentScore { get; set; }
 		float CurrentCombo { get; set; }
