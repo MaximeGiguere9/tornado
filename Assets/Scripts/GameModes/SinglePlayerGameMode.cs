@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
+using Actors;
 using UnityEngine;
 
 namespace GameModes
@@ -12,40 +14,53 @@ namespace GameModes
 		[SerializeField] private float countDown;
 		[SerializeField] private float maxTime;
 
-		public bool IsGameActive { get; private set; }
-		public float CountDownTime => this.countDown;
-		public float RemainingTime { get; private set; }
-		public float TotalScore { get; set; }
-		public float CurrentScore { get; set; }
-		public float CurrentCombo { get; set; } = 1;
+		private bool isGameActive;
+		private float remainingTime;
 
 		public event EventHandler GameStartEvent;
 		public event EventHandler GameEndEvent;
 
+		private readonly List<PlayerAvatar> players = new List<PlayerAvatar>();
+
 		public void StartGame()
 		{
-			this.TotalScore = 0;
-			this.CurrentScore = 0;
-			this.CurrentCombo = 1;
 			StartCoroutine(UpdateGameState());
 		}
 
 		private IEnumerator UpdateGameState()
 		{
-			if (this.IsGameActive) yield break;
-			this.IsGameActive = true;
+			if (this.isGameActive) yield break;
+			this.isGameActive = true;
 			GameStartEvent?.Invoke(this, null);
 
-			this.RemainingTime = this.maxTime;
-			while (this.RemainingTime > 0)
+			this.remainingTime = this.maxTime;
+			while (this.remainingTime > 0)
 			{
-				this.RemainingTime -= Time.deltaTime;
+				this.remainingTime -= Time.deltaTime;
 				yield return null;
 			}
 
-			this.RemainingTime = 0;
-			this.IsGameActive = false;
+			this.remainingTime = 0;
+			this.isGameActive = false;
 			GameEndEvent?.Invoke(this, null);
 		}
+
+		public int RegisterPlayer(PlayerAvatar player)
+		{
+			int i = this.players.IndexOf(player);
+			if (i > -1) return i;
+			i = this.players.Count;
+			this.players.Add(player);
+			return i;
+		}
+
+		public PlayerAvatar GetPlayer(int playerID) =>
+			playerID < this.players.Count && playerID >= 0 ? this.players[playerID] : null;
+
+		public bool IsGameActive() => this.isGameActive;
+
+		public float GetRemainingTime() => this.remainingTime;
+
+		public float GetCountDownTime() => this.countDown;
 	}
 }

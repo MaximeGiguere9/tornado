@@ -10,14 +10,14 @@ namespace UI
 
 		private IGameMode gameMode;
 
-		private void Awake()
+		private void Start()
 		{
 			this.gameMode = GameStateManager.GetCurrentGame();
 		}
 
 		private void Update()
 		{
-			float time = this.gameMode.RemainingTime;
+			float time = this.gameMode.GetRemainingTime();
 			int seconds = Mathf.FloorToInt(time % 60);
 			int minutes = Mathf.FloorToInt(time / 60);
 			int decimals = Mathf.FloorToInt((time * 100) % 100);

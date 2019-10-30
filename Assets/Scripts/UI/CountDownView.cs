@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using GameModes;
 using TMPro;
 using UnityEngine;
@@ -13,7 +12,7 @@ namespace UI
 
 		private IGameMode gameMode;
 
-		private void Awake()
+		private void Start()
 		{
 			this.gameMode = GameStateManager.GetCurrentGame();
 			StartCoroutine(CountDown());
@@ -22,7 +21,7 @@ namespace UI
 		private IEnumerator CountDown()
 		{
 			this.canvasGroup.alpha = 1;
-			float count = this.gameMode.CountDownTime;
+			float count = this.gameMode.GetCountDownTime();
 			while (count > 0)
 			{
 				this.countDownField.text = Mathf.CeilToInt(count).ToString();

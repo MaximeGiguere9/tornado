@@ -1,14 +1,14 @@
-﻿namespace GameModes
+﻿using Actors;
+
+namespace GameModes
 {
 	public interface IGameMode
 	{
-		bool IsGameActive { get; }
-		float RemainingTime { get; }
-		float CountDownTime { get; }
-		float TotalScore { get; set; }
-		float CurrentScore { get; set; }
-		float CurrentCombo { get; set; }
-
 		void StartGame();
+		int RegisterPlayer(PlayerAvatar player);
+		PlayerAvatar GetPlayer(int playerID);
+		bool IsGameActive();
+		float GetRemainingTime();
+		float GetCountDownTime();
 	}
 }

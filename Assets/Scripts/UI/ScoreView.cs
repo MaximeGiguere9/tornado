@@ -1,4 +1,5 @@
-﻿using GameModes;
+﻿using Actors;
+using GameModes;
 using TMPro;
 using UnityEngine;
 
@@ -10,20 +11,19 @@ namespace UI
 		[SerializeField] private TextMeshProUGUI currentScoreField;
 		[SerializeField] private TextMeshProUGUI comboField;
 
-		private IGameMode gameMode;
+		private PlayerAvatar player;
 
-		private void Awake()
+		private void Start()
 		{
-			this.gameMode = GameStateManager.GetCurrentGame();
+			IGameMode gameMode = GameStateManager.GetCurrentGame();
+			this.player = gameMode.GetPlayer(0);
 		}
 
 		private void Update()
 		{
-			int current = Mathf.FloorToInt(this.gameMode.CurrentScore * this.gameMode.CurrentCombo);
-			int total = Mathf.FloorToInt(this.gameMode.TotalScore);
-			this.totalScoreField.text = $"Total : {total}";
-			this.currentScoreField.text = $"Current : {current}";
-			this.comboField.text = $"Combo x{this.gameMode.CurrentCombo:f1}!";
+			this.totalScoreField.text = $"Total : {this.player.GetTotalScore()}";
+			this.currentScoreField.text = $"Current : {this.player.GetCurrentCombo()}";
+			this.comboField.text = $"Combo x{this.player.GetCurrentMultiplier():f1}!";
 		}
 	}
 }

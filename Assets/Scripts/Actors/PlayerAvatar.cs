@@ -9,23 +9,28 @@ namespace Actors
 	public class PlayerAvatar : MonoBehaviour
 	{
 		[SerializeField] private Tornado tornado;
-		[SerializeField] private Color playerColor;
-		[SerializeField] private int playerID;
+		[SerializeField] private Color[] playerColors;
 
 		private IGameMode gameMode;
+		private int playerID;
+
+		private float totalScore = 0;
+		private float currentCombo = 0;
+		private float currentMultiplier = 1;
 
 		private void Awake()
 		{
 			this.gameMode = GameStateManager.GetCurrentGame();
+			this.playerID = this.gameMode.RegisterPlayer(this);
 			this.tornado.SetRageActive(false);
-			this.tornado.SetCursorColor(this.playerColor);
+			this.tornado.SetCursorColor(this.playerColors[this.playerID]);
 			this.tornado.ObjectGrabbedEvent += OnObjectGrabbed;
 			this.tornado.ObjectsReleasedEvent += OnObjectsReleased;
 		}
 		
 		private void Update()
 		{
-			bool a = this.gameMode.IsGameActive;
+			bool a = this.gameMode.IsGameActive();
 			this.tornado.SetRageActive(a && Input.GetButton("Fire1"));
 			this.tornado.SetMoveDirection(a ? new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")) : Vector2.zero);
 		}
@@ -36,21 +41,25 @@ namespace Actors
 			this.tornado.ObjectsReleasedEvent -= OnObjectsReleased;
 		}
 
-		public int GetPlayerID() => this.playerID;
-
-		public int SetPlayerID(int playerID) => this.playerID = playerID;
-
 		private void OnObjectGrabbed(object sender, GrabbableObject grabbable)
 		{
-			this.gameMode.CurrentScore += grabbable.GetPointValue();
-			this.gameMode.CurrentCombo += 0.1f;
+			this.currentCombo += grabbable.GetPointValue();
+			this.currentMultiplier += 0.1f;
 		}
 
 		private void OnObjectsReleased(object sender, object args)
 		{
-			this.gameMode.TotalScore += this.gameMode.CurrentScore * this.gameMode.CurrentCombo;
-			this.gameMode.CurrentScore = 0;
-			this.gameMode.CurrentCombo = 1;
+			this.totalScore += this.currentCombo * this.currentMultiplier;
+			this.currentCombo = 0;
+			this.currentMultiplier = 1;
 		}
+
+		public int GetPlayerID() => this.playerID;
+
+		public int GetTotalScore() => Mathf.FloorToInt(this.totalScore + this.currentCombo * this.currentMultiplier);
+
+		public int GetCurrentCombo() => Mathf.FloorToInt(this.currentCombo * this.currentMultiplier);
+
+		public float GetCurrentMultiplier() => this.currentMultiplier;
 	}
 }
