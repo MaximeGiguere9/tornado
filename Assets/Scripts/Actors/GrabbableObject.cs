@@ -24,7 +24,7 @@ namespace Actors
 				_objectMeshes = Resources.LoadAll<GameObject>("Prefabs").ToList();
 
 			GameObject go = Instantiate(_objectMeshes[Random.Range(0, _objectMeshes.Count)], transform, false);
-			Bounds bounds = go.GetComponent<Renderer>().bounds;
+			Bounds bounds = go.GetComponentInChildren<Renderer>().bounds;
 
 			this.boxCollider.center = transform.InverseTransformPoint(bounds.center);
 			this.boxCollider.size = bounds.size;

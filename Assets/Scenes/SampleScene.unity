@@ -659,7 +659,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grabbableObjectPrefab: {fileID: 6182581081043485073, guid: 7592b9af5e0a82b4f919676e95de5c64,
     type: 3}
-  objectCount: 20
+  objectCount: 40
   playArea: 200
 --- !u!4 &692849656
 Transform:
