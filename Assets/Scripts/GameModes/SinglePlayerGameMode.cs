@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using Actors;
 using UnityEngine;
 
 namespace GameModes
@@ -20,7 +19,7 @@ namespace GameModes
 		public event EventHandler GameStartEvent;
 		public event EventHandler GameEndEvent;
 
-		private readonly List<PlayerAvatar> players = new List<PlayerAvatar>();
+		private readonly List<IPlayer> players = new List<IPlayer>();
 
 		public void StartGame()
 		{
@@ -45,7 +44,7 @@ namespace GameModes
 			GameEndEvent?.Invoke(this, null);
 		}
 
-		public int RegisterPlayer(PlayerAvatar player)
+		public int RegisterPlayer(IPlayer player)
 		{
 			int i = this.players.IndexOf(player);
 			if (i > -1) return i;
@@ -54,7 +53,7 @@ namespace GameModes
 			return i;
 		}
 
-		public PlayerAvatar GetPlayer(int playerID) =>
+		public IPlayer GetPlayer(int playerID) =>
 			playerID < this.players.Count && playerID >= 0 ? this.players[playerID] : null;
 
 		public bool IsGameActive() => this.isGameActive;

@@ -6,7 +6,7 @@ namespace Actors
 	/// <summary>
 	/// Player binding that possesses a tornado
 	/// </summary>
-	public class PlayerAvatar : MonoBehaviour
+	public class PlayerAvatar : MonoBehaviour, IPlayer
 	{
 		[SerializeField] private Tornado tornado;
 		[SerializeField] private Color[] playerColors;

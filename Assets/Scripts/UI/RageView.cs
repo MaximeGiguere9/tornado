@@ -1,5 +1,4 @@
-﻿using Actors;
-using GameModes;
+﻿using GameModes;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,7 +9,7 @@ namespace UI
 		[SerializeField] private Image meter;
 		[SerializeField] private CanvasGroup canvasGroup;
 
-		private PlayerAvatar player;
+		private IPlayer player;
 
 		private void Start()
 		{

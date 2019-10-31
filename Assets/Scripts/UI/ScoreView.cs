@@ -1,5 +1,4 @@
-﻿using Actors;
-using GameModes;
+﻿using GameModes;
 using TMPro;
 using UnityEngine;
 
@@ -11,7 +10,7 @@ namespace UI
 		[SerializeField] private TextMeshProUGUI currentScoreField;
 		[SerializeField] private TextMeshProUGUI comboField;
 
-		private PlayerAvatar player;
+		private IPlayer player;
 
 		private void Start()
 		{

@@ -1,12 +1,10 @@
-﻿using Actors;
-
-namespace GameModes
+﻿namespace GameModes
 {
 	public interface IGameMode
 	{
 		void StartGame();
-		int RegisterPlayer(PlayerAvatar player);
-		PlayerAvatar GetPlayer(int playerID);
+		int RegisterPlayer(IPlayer player);
+		IPlayer GetPlayer(int playerID);
 		bool IsGameActive();
 		float GetRemainingTime();
 		float GetCountDownTime();
