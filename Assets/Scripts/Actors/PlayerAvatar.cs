@@ -10,8 +10,9 @@ namespace Actors
 	{
 		[SerializeField] private Tornado tornado;
 		[SerializeField] private Color[] playerColors;
-		[SerializeField] private float maxRageTime = 5;
-		[SerializeField] private float rageCooldown = 3;
+		[SerializeField] private float maxRageTime = 3;
+		[SerializeField] private float rageCooldown = 2;
+		[SerializeField] private float pickupRestoreValue = 0.5f;
 
 		private IGameMode gameMode;
 		private int playerID;
@@ -65,6 +66,7 @@ namespace Actors
 		{
 			this.currentCombo += grabbable.GetPointValue();
 			this.currentMultiplier += 0.1f;
+			this.currentRageMeter = Mathf.Clamp(this.currentRageMeter + this.pickupRestoreValue, 0, this.maxRageTime);
 		}
 
 		private void OnObjectsReleased(object sender, object args)
