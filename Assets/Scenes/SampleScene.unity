@@ -142,7 +142,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   countDown: 3
-  maxTime: 30
+  maxTime: 60
 --- !u!4 &146181777
 Transform:
   m_ObjectHideFlags: 0
@@ -638,7 +638,7 @@ GameObject:
   m_Component:
   - component: {fileID: 692849656}
   - component: {fileID: 692849655}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: WorldGenerator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -659,8 +659,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grabbableObjectPrefab: {fileID: 6182581081043485073, guid: 7592b9af5e0a82b4f919676e95de5c64,
     type: 3}
-  objectCount: 40
-  playArea: 200
+  objectCount: 50
+  spawnArea: 300
+  playArea: 450
 --- !u!4 &692849656
 Transform:
   m_ObjectHideFlags: 0
