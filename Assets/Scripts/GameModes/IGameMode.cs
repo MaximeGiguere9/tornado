@@ -1,9 +1,12 @@
+using System;
 using Player;
 
 namespace GameModes
 {
 	public interface IGameMode
 	{
+		event EventHandler GameStartEvent;
+		event EventHandler GameEndEvent;
 		void StartGame();
 		int RegisterPlayer(IPlayer player);
 		IPlayer GetPlayer(int playerID);
