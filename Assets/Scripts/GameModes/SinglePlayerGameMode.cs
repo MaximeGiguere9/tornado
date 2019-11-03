@@ -12,6 +12,9 @@ namespace GameModes
 	{
 		[SerializeField] private float countDown;
 		[SerializeField] private float maxTime;
+		[SerializeField] private float maxRageTime;
+		[SerializeField] private float rageCooldown;
+		[SerializeField] private float pickupRageRestore;
 
 		private bool isGameActive;
 		private float remainingTime;
@@ -61,5 +64,11 @@ namespace GameModes
 		public float GetRemainingTime() => this.remainingTime;
 
 		public float GetCountDownTime() => this.countDown;
+
+		public float GetMaxRageTime() => this.maxRageTime;
+
+		public float GetRageCooldown() => this.rageCooldown;
+
+		public float GetRageRestoreValue() => this.pickupRageRestore;
 	}
 }

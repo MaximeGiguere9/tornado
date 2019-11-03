@@ -143,6 +143,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   countDown: 3
   maxTime: 60
+  maxRageTime: 3
+  rageCooldown: 2
+  pickupRageRestore: 0.5
 --- !u!4 &146181777
 Transform:
   m_ObjectHideFlags: 0

@@ -8,5 +8,8 @@
 		bool IsGameActive();
 		float GetRemainingTime();
 		float GetCountDownTime();
+		float GetMaxRageTime();
+		float GetRageCooldown();
+		float GetRageRestoreValue();
 	}
 }
