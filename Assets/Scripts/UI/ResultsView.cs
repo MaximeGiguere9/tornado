@@ -1,5 +1,4 @@
-﻿using System;
-using GameModes;
+﻿using GameModes;
 using Player;
 using System.Text;
 using TMPro;
@@ -93,7 +92,11 @@ namespace UI
 				return;
 			}
 
-			GameStateManager.AddScore(this.playerName.ToString(), this.player.GetTotalScore());
+			StringBuilder sb = new StringBuilder();
+			foreach (char c in this.playerName)
+				sb.Append(c);
+
+			GameStateManager.AddScore(sb.ToString(), this.player.GetTotalScore());
 			this.hiScoresView.SetActive(true);
 			gameObject.SetActive(false);
 		}
