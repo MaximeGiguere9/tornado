@@ -27,8 +27,8 @@ namespace GameModes
 
 		private void Awake()
 		{
-			GameStateManager.ResetGame();
-			GameStateManager.SetGame(this);
+			GameStateManager.DestroyCurrentGame();
+			GameStateManager.SetCurrentGame(this);
 			DontDestroyOnLoad(gameObject);
 		}
 

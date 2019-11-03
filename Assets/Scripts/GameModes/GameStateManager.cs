@@ -32,14 +32,15 @@ namespace GameModes
 
 		public static IGameMode GetCurrentGame() => _gameMode;
 
-		public static void SetGame(IGameMode gameMode) => _gameMode = gameMode;
+		public static void SetCurrentGame(IGameMode gameMode) => _gameMode = gameMode;
 
-		public static void ResetGame()
+		public static void DestroyCurrentGame()
 		{
 			_gameMode?.DestroyGame();
 			_gameMode = null;
-			SceneManager.LoadScene("Menu");
 		}
+
+		public static void ResetGame() => SceneManager.LoadScene("Menu");
 
 		public static void BeginGame() => SceneManager.LoadScene("Game");
 
