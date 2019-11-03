@@ -9,5 +9,6 @@
 		int GetCurrentCombo();
 		float GetCurrentMultiplier();
 		int GetTotalObjectsGrabbed();
+		int GetLargestObjectGrabCombo();
 	}
 }

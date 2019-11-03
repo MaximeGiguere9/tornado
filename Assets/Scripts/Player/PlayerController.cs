@@ -13,6 +13,8 @@ namespace Player
 		private float currentCombo;
 		private float currentMultiplier;
 		private int totalObjectsGrabbed;
+		private int currentGrabCombo;
+		private int largestGrabCombo;
 
 		public PlayerController()
 		{
@@ -42,11 +44,16 @@ namespace Player
 
 		public int GetTotalObjectsGrabbed() => this.totalObjectsGrabbed;
 
+		public int GetLargestObjectGrabCombo() => this.largestGrabCombo;
+
 		public void AddToCombo(int score)
 		{
 			this.currentCombo += score;
 			this.currentMultiplier += 0.1f;
 			this.totalObjectsGrabbed += 1;
+			this.currentGrabCombo += 1;
+			if (this.currentGrabCombo > this.largestGrabCombo)
+				this.largestGrabCombo = this.currentGrabCombo;
 		}
 
 		public void ResetCombo()
@@ -54,6 +61,7 @@ namespace Player
 			this.totalScore += this.currentCombo * this.currentMultiplier;
 			this.currentCombo = 0;
 			this.currentMultiplier = 1;
+			this.currentGrabCombo = 0;
 		}
 	}
 }
