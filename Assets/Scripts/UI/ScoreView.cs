@@ -1,4 +1,5 @@
 ﻿using GameModes;
+using Player;
 using TMPro;
 using UnityEngine;
 

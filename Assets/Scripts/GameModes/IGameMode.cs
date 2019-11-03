@@ -1,4 +1,6 @@
-﻿namespace GameModes
+using Player;
+
+namespace GameModes
 {
 	public interface IGameMode
 	{

@@ -1,4 +1,5 @@
 ﻿using GameModes;
+using Player;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,7 +21,7 @@ namespace UI
 		private void Update()
 		{
 			this.meter.fillAmount = this.player.GetRagePercentage();
-			this.canvasGroup.alpha = this.player.CanUseRage() ? 1 : 0.5f;
+			this.canvasGroup.alpha = this.player.GetRageAvailability() ? 1 : 0.5f;
 		}
 	}
 }
