@@ -8,6 +8,7 @@ namespace GameModes
 		event EventHandler GameStartEvent;
 		event EventHandler GameEndEvent;
 		void StartGame();
+		void DestroyGame();
 		int RegisterPlayer(IPlayer player);
 		IPlayer GetPlayer(int playerID);
 		bool IsGameActive();

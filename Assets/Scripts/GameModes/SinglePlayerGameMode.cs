@@ -25,9 +25,21 @@ namespace GameModes
 
 		private readonly List<IPlayer> players = new List<IPlayer>();
 
+		private void Awake()
+		{
+			GameStateManager.ResetGame();
+			GameStateManager.SetGame(this);
+			DontDestroyOnLoad(gameObject);
+		}
+
 		public void StartGame()
 		{
 			StartCoroutine(UpdateGameState());
+		}
+
+		public void DestroyGame()
+		{
+			Destroy(gameObject);
 		}
 
 		private IEnumerator UpdateGameState()
