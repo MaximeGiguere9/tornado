@@ -39,10 +39,10 @@ namespace Actors
 		{
 			if (this.source == null) return;
 			
-			float height = GetHashCode() % (this.source.GetHeight()/2) + (this.source.GetHeight()/2);
-			float radius = GetHashCode() % (this.source.GetRadius()/4) + (this.source.GetRadius()*3/4);
-			float rotationSpeed = GetHashCode() % 8 + 4;
-			float angle = GetHashCode() % 2 * Mathf.PI;
+			float height = Mathf.Abs(GetHashCode() % (this.source.GetHeight()/3)) + (this.source.GetHeight()/6);
+			float radius = Mathf.Abs(GetHashCode() % (this.source.GetRadius()/4*3)) + (this.source.GetRadius()/4);
+			float rotationSpeed = Mathf.Abs(GetHashCode() % 7) + 3;
+			float angle = Mathf.Abs(GetHashCode() % (2 * Mathf.PI));
 
 			float offset = GetHashCode() + Time.fixedTime * rotationSpeed + angle;
 			Vector3 localPos = new Vector3(radius * Mathf.Cos(offset), height, radius * Mathf.Sin(offset));
