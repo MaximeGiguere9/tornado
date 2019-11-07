@@ -19,7 +19,7 @@ namespace Player
 		private float currentRageCooldown;
 		private bool canUseRage;
 
-		private void Start()
+		private void Awake()
 		{
 			this.controller = new PlayerController();
 			this.gameMode = GameStateManager.GetCurrentGame();
