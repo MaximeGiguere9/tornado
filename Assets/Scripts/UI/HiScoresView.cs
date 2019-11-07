@@ -18,12 +18,12 @@ namespace UI
 			{
 				i++;
 				if (i > maxScores) break;
-				this.textField.text += $"{kvp.Key}\t{kvp.Value:d5}\n";
+				this.textField.text += $"{kvp.Key}    {kvp.Value:d5}\n";
 			}
 
 			while (i < maxScores)
 			{
-				this.textField.text += "AAA\t00000\n";
+				this.textField.text += "AAA    00000\n";
 				i++;
 			}
 		}
