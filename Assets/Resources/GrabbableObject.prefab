@@ -74,6 +74,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 905d322a5a274389b97eb28626c2c243, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectMeshFolder: WorldObjects
   rigidbody: {fileID: 6182581081043485084}
   boxCollider: {fileID: 6182581081043485087}
   pointValue: 0

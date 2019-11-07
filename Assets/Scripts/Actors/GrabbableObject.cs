@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Actors
 {
@@ -8,6 +10,7 @@ namespace Actors
 	{
 		private static List<GameObject> _objectMeshes;
 
+		[SerializeField] private string objectMeshFolder;
 		[SerializeField] private new Rigidbody rigidbody;
 		[SerializeField] private BoxCollider boxCollider;
 		[SerializeField] private int pointValue;
@@ -17,11 +20,14 @@ namespace Actors
 		[SerializeField] private float releaseVelocity = 50;
 
 		private Tornado source;
+		private int id;
 
 		private void Awake()
 		{
+			this.id = Random.Range(0, 100000);
+
 			if(_objectMeshes == null)
-				_objectMeshes = Resources.LoadAll<GameObject>("Prefabs").ToList();
+				_objectMeshes = Resources.LoadAll<GameObject>(this.objectMeshFolder).ToList();
 
 			GameObject go = Instantiate(_objectMeshes[Random.Range(0, _objectMeshes.Count)], transform, false);
 			Bounds bounds = go.GetComponentInChildren<Renderer>().bounds;
@@ -39,12 +45,12 @@ namespace Actors
 		{
 			if (this.source == null) return;
 			
-			float height = Mathf.Abs(GetHashCode() % (this.source.GetHeight()/3)) + (this.source.GetHeight()/6);
-			float radius = Mathf.Abs(GetHashCode() % (this.source.GetRadius()/4*3)) + (this.source.GetRadius()/4);
-			float rotationSpeed = Mathf.Abs(GetHashCode() % 7) + 3;
-			float angle = Mathf.Abs(GetHashCode() % (2 * Mathf.PI));
+			float height = (this.id % (this.source.GetHeight()/3)) + (this.source.GetHeight()/6);
+			float radius = (this.id % (this.source.GetRadius()/4*3)) + (this.source.GetRadius()/4);
+			float rotationSpeed = (this.id % 7) + 3;
+			float angle = (this.id % (2 * Mathf.PI));
 
-			float offset = GetHashCode() + Time.fixedTime * rotationSpeed + angle;
+			float offset = this.id + Time.fixedTime * rotationSpeed + angle;
 			Vector3 localPos = new Vector3(radius * Mathf.Cos(offset), height, radius * Mathf.Sin(offset));
 			transform.position = Vector3.Lerp(transform.position, this.source.GetPosition() + localPos, 0.15f);
 		}
