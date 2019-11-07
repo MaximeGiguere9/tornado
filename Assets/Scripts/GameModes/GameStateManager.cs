@@ -12,7 +12,7 @@ namespace GameModes
 	{
 		private static List<KeyValuePair<string, int>> _scores;
 
-		private static IGameMode _gameMode;
+		private static GameMode _gameMode;
 
 		private static void LoadHiScores() => _scores = PlayerPrefs.HasKey("HiScores")
 			? JsonUtility.FromJson<List<KeyValuePair<string, int>>>(PlayerPrefs.GetString("HiScores"))
@@ -30,15 +30,9 @@ namespace GameModes
 
 		public static IEnumerable<KeyValuePair<string, int>> GetScores() => _scores;
 
-		public static IGameMode GetCurrentGame() => _gameMode;
+		public static GameMode GetCurrentGame() => _gameMode;
 
-		public static void SetCurrentGame(IGameMode gameMode) => _gameMode = gameMode;
-
-		public static void DestroyCurrentGame()
-		{
-			_gameMode?.DestroyGame();
-			_gameMode = null;
-		}
+		public static void SetCurrentGame(GameMode gameMode) => _gameMode = gameMode;
 
 		public static void ResetGame() => SceneManager.LoadScene("Menu");
 

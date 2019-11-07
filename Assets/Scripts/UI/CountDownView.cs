@@ -10,7 +10,7 @@ namespace UI
 		[SerializeField] private CanvasGroup canvasGroup;
 		[SerializeField] private TextMeshProUGUI countDownField;
 
-		private IGameMode gameMode;
+		private GameMode gameMode;
 
 		private void Start()
 		{

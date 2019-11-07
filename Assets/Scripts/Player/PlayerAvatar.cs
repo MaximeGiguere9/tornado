@@ -13,7 +13,7 @@ namespace Player
 		[SerializeField] private Color[] playerColors;
 
 		private PlayerController controller;
-		private IGameMode gameMode;
+		private GameMode gameMode;
 
 		private float currentRageMeter;
 		private float currentRageCooldown;

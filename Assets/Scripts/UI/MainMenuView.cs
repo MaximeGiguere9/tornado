@@ -5,9 +5,18 @@ namespace UI
 {
 	public class MainMenuView : MonoBehaviour
 	{
+		[SerializeField] private SinglePlayerGameMode gameMode;
+
 		private void Update()
 		{
-			if (Input.GetButton("Fire1")) GameStateManager.BeginGame();
+			if (Input.GetButton("Fire1")) BeginGame();
+		}
+
+		private void BeginGame()
+		{
+			this.gameMode.Reset();
+			GameStateManager.SetCurrentGame(this.gameMode);
+			GameStateManager.BeginGame();
 		}
 	}
 }

@@ -14,7 +14,7 @@ namespace UI
 
 		private void Start()
 		{
-			IGameMode gameMode = GameStateManager.GetCurrentGame();
+			GameMode gameMode = GameStateManager.GetCurrentGame();
 			this.player = gameMode.GetPlayer(0);
 		}
 

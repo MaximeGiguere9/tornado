@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Core.Initialization;
 using Player;
 using UnityEngine;
 
@@ -9,38 +10,30 @@ namespace GameModes
 	/// <summary>
 	/// Single player time-attack game mode tracks score for a unique player
 	/// </summary>
-	public class SinglePlayerGameMode : MonoBehaviour, IGameMode
+	[CreateAssetMenu(fileName = "SinglePlayerGameMode", menuName = "Game Modes/Single Player")]
+	public class SinglePlayerGameMode : GameMode
 	{
-		[SerializeField] private float countDown;
-		[SerializeField] private float maxTime;
-		[SerializeField] private float maxRageTime;
-		[SerializeField] private float rageCooldown;
-		[SerializeField] private float pickupRageRestore;
+		[SerializeField] private float countDown = 3;
+		[SerializeField] private float maxTime = 60;
+		[SerializeField] private float maxRageTime = 3;
+		[SerializeField] private float rageCooldown = 2;
+		[SerializeField] private float pickupRageRestore = 0.5f;
 
 		private bool isGameActive;
 		private float remainingTime;
 
-		public event EventHandler GameStartEvent;
-		public event EventHandler GameEndEvent;
+		public override event EventHandler GameStartEvent;
+		public override event EventHandler GameEndEvent;
 
 		private readonly List<IPlayer> players = new List<IPlayer>();
 
-		private void Awake()
+		public override void Reset()
 		{
-			GameStateManager.DestroyCurrentGame();
-			GameStateManager.SetCurrentGame(this);
-			DontDestroyOnLoad(gameObject);
+			this.isGameActive = false;
+			this.remainingTime = this.maxTime;
 		}
 
-		public void StartGame()
-		{
-			StartCoroutine(UpdateGameState());
-		}
-
-		public void DestroyGame()
-		{
-			Destroy(gameObject);
-		}
+		public override void StartGame() => MonoBehaviourHelper.Start(UpdateGameState());
 
 		private IEnumerator UpdateGameState()
 		{
@@ -60,7 +53,7 @@ namespace GameModes
 			GameEndEvent?.Invoke(this, null);
 		}
 
-		public int RegisterPlayer(IPlayer player)
+		public override int RegisterPlayer(IPlayer player)
 		{
 			int i = this.players.IndexOf(player);
 			if (i > -1) return i;
@@ -69,19 +62,19 @@ namespace GameModes
 			return i;
 		}
 
-		public IPlayer GetPlayer(int playerID) =>
+		public override IPlayer GetPlayer(int playerID) =>
 			playerID < this.players.Count && playerID >= 0 ? this.players[playerID] : null;
 
-		public bool IsGameActive() => this.isGameActive;
+		public override bool IsGameActive() => this.isGameActive;
 
-		public float GetRemainingTime() => this.remainingTime;
+		public override float GetRemainingTime() => this.remainingTime;
 
-		public float GetCountDownTime() => this.countDown;
+		public override float GetCountDownTime() => this.countDown;
 
-		public float GetMaxRageTime() => this.maxRageTime;
+		public override float GetMaxRageTime() => this.maxRageTime;
 
-		public float GetRageCooldown() => this.rageCooldown;
+		public override float GetRageCooldown() => this.rageCooldown;
 
-		public float GetRageRestoreValue() => this.pickupRageRestore;
+		public override float GetRageRestoreValue() => this.pickupRageRestore;
 	}
 }

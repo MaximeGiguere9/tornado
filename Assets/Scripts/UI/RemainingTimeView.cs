@@ -8,7 +8,7 @@ namespace UI
 	{
 		[SerializeField] private TextMeshProUGUI timeField;
 
-		private IGameMode gameMode;
+		private GameMode gameMode;
 
 		private void Start()
 		{
