@@ -31,6 +31,7 @@ namespace GameModes
 		{
 			this.isGameActive = false;
 			this.remainingTime = this.maxTime;
+			this.players.Clear();
 		}
 
 		public override void StartGame() => MonoBehaviourHelper.Start(UpdateGameState());
