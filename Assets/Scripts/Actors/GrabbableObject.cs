@@ -36,6 +36,7 @@ namespace Actors
 			this.boxCollider.size = bounds.size;
 
 			transform.localScale = Random.Range(this.minScale, this.maxScale) * Vector3.one;
+			transform.localRotation = Quaternion.AngleAxis(Random.Range(0, 360), Vector3.up);
 
 			if (this.autoCalculateValue)
 				this.pointValue = Mathf.CeilToInt(this.boxCollider.size.magnitude);
