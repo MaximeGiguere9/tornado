@@ -22,7 +22,7 @@ namespace Player
 		private void Awake()
 		{
 			this.controller = new PlayerController();
-			this.gameMode = GameStateManager.GetCurrentGame();
+			this.gameMode = GameStateManager.GetGameMode();
 			this.tornado.SetRageActive(false);
 			this.tornado.SetCursorColor(this.playerColors[this.controller.GetPlayerID()]);
 			this.tornado.ObjectGrabbedEvent += OnObjectGrabbed;

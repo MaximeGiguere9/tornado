@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -30,14 +30,14 @@ namespace GameModes
 
 		public static IEnumerable<KeyValuePair<string, int>> GetScores() => _scores;
 
-		public static GameMode GetCurrentGame() => _gameMode;
+		public static GameMode GetGameMode() => _gameMode;
 
-		public static void SetCurrentGame(GameMode gameMode) => _gameMode = gameMode;
+		public static void SetGameMode(GameMode gameMode) => _gameMode = gameMode;
 
-		public static void ResetGame() => SceneManager.LoadScene("Menu");
+		public static void LoadMenuScene() => SceneManager.LoadScene("Menu");
 
-		public static void BeginGame() => SceneManager.LoadScene("Game");
+		public static void LoadGameScene() => SceneManager.LoadScene("Game");
 
-		public static void EndGame() => SceneManager.LoadScene("Results");
+		public static void LoadResultsScene() => SceneManager.LoadScene("Results");
 	}
 }

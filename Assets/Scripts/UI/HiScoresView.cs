@@ -1,4 +1,4 @@
-﻿using GameModes;
+using GameModes;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -30,7 +30,7 @@ namespace UI
 
 		private void Update()
 		{
-			if(Input.GetButtonDown("Fire1")) GameStateManager.ResetGame();
+			if(Input.GetButtonDown("Fire1")) GameStateManager.LoadMenuScene();
 		}
 	}
 }

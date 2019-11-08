@@ -12,7 +12,7 @@ namespace UI
 
 		private void Start()
 		{
-			this.gameMode = GameStateManager.GetCurrentGame();
+			this.gameMode = GameStateManager.GetGameMode();
 		}
 
 		private void Update()

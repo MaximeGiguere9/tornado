@@ -18,8 +18,8 @@ namespace Player
 
 		public PlayerController()
 		{
-			this.playerID = GameStateManager.GetCurrentGame().RegisterPlayer(this);
-			this.maxRage = GameStateManager.GetCurrentGame().GetMaxRageTime();
+			this.playerID = GameStateManager.GetGameMode().RegisterPlayer(this);
+			this.maxRage = GameStateManager.GetGameMode().GetMaxRageTime();
 		}
 
 		public int GetPlayerID() => this.playerID;

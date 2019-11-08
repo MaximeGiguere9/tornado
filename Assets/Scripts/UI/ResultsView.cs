@@ -19,7 +19,7 @@ namespace UI
 
 		private void Awake()
 		{
-			this.player = GameStateManager.GetCurrentGame()?.GetPlayer(0);
+			this.player = GameStateManager.GetGameMode()?.GetPlayer(0);
 			StringBuilder sb = new StringBuilder();
 			sb.Append("Total Objects Grabbed : ")
 				.Append(this.player?.GetTotalObjectsGrabbed() ?? 0)

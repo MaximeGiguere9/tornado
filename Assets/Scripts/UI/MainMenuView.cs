@@ -15,8 +15,8 @@ namespace UI
 		private void BeginGame()
 		{
 			this.gameMode.Reset();
-			GameStateManager.SetCurrentGame(this.gameMode);
-			GameStateManager.BeginGame();
+			GameStateManager.SetGameMode(this.gameMode);
+			GameStateManager.LoadGameScene();
 		}
 	}
 }

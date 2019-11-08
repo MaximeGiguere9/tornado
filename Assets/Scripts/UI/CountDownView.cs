@@ -14,7 +14,7 @@ namespace UI
 
 		private void Start()
 		{
-			this.gameMode = GameStateManager.GetCurrentGame();
+			this.gameMode = GameStateManager.GetGameMode();
 			this.gameMode.GameEndEvent += OnGameEnd;
 			StartCoroutine(CountDown());
 		}
@@ -51,7 +51,7 @@ namespace UI
 			this.canvasGroup.alpha = 1;
 			this.countDownField.text = "Finish!";
 			yield return new WaitForSeconds(this.gameMode.GetCountDownTime());
-			GameStateManager.EndGame();
+			GameStateManager.LoadResultsScene();
 		}
 
 	}
