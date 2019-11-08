@@ -1,5 +1,4 @@
-using GameModes;
-using System.Collections.Generic;
+﻿using GameModes;
 using TMPro;
 using UnityEngine;
 
@@ -14,11 +13,11 @@ namespace UI
 		{
 			int i = 0;
 			this.textField.text = "";
-			foreach (KeyValuePair<string, int> kvp in GameStateManager.GetScores())
+			foreach (HiScoreEntry entry in GameStateManager.GetHiScores())
 			{
 				i++;
 				if (i > maxScores) break;
-				this.textField.text += $"{kvp.Key}    {kvp.Value:d5}\n";
+				this.textField.text += $"{entry.Name}    {entry.Score:d5}\n";
 			}
 
 			while (i < maxScores)

@@ -1,6 +1,4 @@
-using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace GameModes
@@ -10,25 +8,27 @@ namespace GameModes
 	/// </summary>
 	public static class GameStateManager
 	{
-		private static List<KeyValuePair<string, int>> _scores;
-
+		private static HiScoresData _scores;
 		private static GameMode _gameMode;
 
 		private static void LoadHiScores() => _scores = PlayerPrefs.HasKey("HiScores")
-			? JsonUtility.FromJson<List<KeyValuePair<string, int>>>(PlayerPrefs.GetString("HiScores"))
-			: new List<KeyValuePair<string, int>>();
+			? JsonUtility.FromJson<HiScoresData>(PlayerPrefs.GetString("HiScores"))
+			: new HiScoresData();
 
-		private static void SaveHiScores() => PlayerPrefs.SetString("HiScores", JsonUtility.ToJson(_scores));
+		private static void SaveHiScores()
+		{
+			string str = JsonUtility.ToJson(_scores);
+			PlayerPrefs.SetString("HiScores", str);
+		}
 
 		public static void AddScore(string name, int score)
 		{
 			if (_scores == null) LoadHiScores();
-			_scores?.Add(new KeyValuePair<string, int>(name, score));
-			_scores = _scores?.OrderByDescending(s => s.Value).ToList();
+			_scores?.Add(name, score);
 			SaveHiScores();
 		}
 
-		public static IEnumerable<KeyValuePair<string, int>> GetScores() => _scores;
+		public static HiScoresData GetHiScores() => _scores;
 
 		public static GameMode GetGameMode() => _gameMode;
 
