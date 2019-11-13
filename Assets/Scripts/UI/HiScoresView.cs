@@ -29,7 +29,7 @@ namespace UI
 
 		private void Update()
 		{
-			if(Input.GetButtonDown("Fire1")) GameStateManager.LoadMenuScene();
+			if(Input.GetButtonDown("Fire")) GameStateManager.LoadMenuScene();
 		}
 	}
 }

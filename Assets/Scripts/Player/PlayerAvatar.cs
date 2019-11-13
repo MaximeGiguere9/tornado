@@ -49,7 +49,7 @@ namespace Player
 
 			this.canUseRage = a && b && c;
 
-			bool d = this.canUseRage && Input.GetButton("Fire1");
+			bool d = this.canUseRage && Input.GetButton("Fire");
 
 			if (this.tornado.IsRageActive() && !d)
 				this.currentRageCooldown = this.gameMode.GetRageCooldown();

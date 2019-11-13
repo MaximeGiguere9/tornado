@@ -9,7 +9,7 @@ namespace UI
 
 		private void Update()
 		{
-			if (Input.GetButton("Fire1")) BeginGame();
+			if (Input.GetButton("Fire")) BeginGame();
 		}
 
 		private void BeginGame()

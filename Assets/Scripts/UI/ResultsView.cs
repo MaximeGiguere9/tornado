@@ -66,7 +66,7 @@ namespace UI
 			sb.Append("</mspace>");
 			this.nameField.text = sb.ToString();
 
-			if(Input.GetButtonDown("Fire1")) SaveScore();
+			if(Input.GetButtonDown("Fire")) SaveScore();
 		}
 
 		private void MovePos(int dir)
