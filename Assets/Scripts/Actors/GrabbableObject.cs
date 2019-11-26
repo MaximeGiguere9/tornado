@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -17,7 +16,8 @@ namespace Actors
 		[SerializeField] private bool autoCalculateValue;
 		[SerializeField] private float minScale = 1;
 		[SerializeField] private float maxScale = 2;
-		[SerializeField] private float releaseVelocity = 50;
+		[SerializeField] private float minReleaseVelocity = 40;
+		[SerializeField] private float maxReleaseVelocity = 60;
 
 		private Tornado source;
 		private int id;
@@ -72,7 +72,7 @@ namespace Actors
 		public void Release()
 		{
 			Vector3 direction = Vector3.Cross(transform.position - this.source.GetPosition(), Vector3.up).normalized;
-			this.rigidbody.velocity = direction * this.releaseVelocity;
+			this.rigidbody.velocity = direction * Random.Range(this.minReleaseVelocity, this.maxReleaseVelocity);
 			this.rigidbody.useGravity = true;
 			this.source = null;
 		}

@@ -81,4 +81,5 @@ MonoBehaviour:
   autoCalculateValue: 1
   minScale: 1
   maxScale: 2
-  releaseVelocity: 40
+  minReleaseVelocity: 40
+  maxReleaseVelocity: 60
