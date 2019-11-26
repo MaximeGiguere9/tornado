@@ -1,6 +1,8 @@
-﻿using GameModes;
+﻿using System;
+using GameModes;
 using Player;
 using System.Text;
+using Core.InputManagement.Buttons;
 using TMPro;
 using UnityEngine;
 
@@ -17,6 +19,10 @@ namespace UI
 		private char[] playerName;
 		private int pos;
 
+		//custom buttons used here due to Unity not having a GetButtonDown equivalent for axes
+		private IInputButton horizontalInput;
+		private IInputButton verticalInput;
+
 		private void Awake()
 		{
 			this.player = GameStateManager.GetGameMode()?.GetPlayer(0);
@@ -31,25 +37,18 @@ namespace UI
 
 			this.playerName = new[] { (char)65, (char)65, (char)65 };
 			this.pos = 0;
+
+			this.horizontalInput = new InputButton("Horizontal") {DeadZone = 0.2f};
+			this.verticalInput = new InputButton("Vertical") {DeadZone = 0.2f};
 		}
 
 		private void Update()
 		{
-			if (Input.GetButtonDown("Horizontal"))
-			{
-				if (Input.GetAxis("Horizontal") > 0)
-					MovePos(1);
-				else if (Input.GetAxis("Horizontal") < 0)
-					MovePos(-1);
-			}
+			this.horizontalInput.UpdateState();
+			this.verticalInput.UpdateState();
 
-			if (Input.GetButtonDown("Vertical"))
-			{
-				if (Input.GetAxis("Vertical") > 0)
-					IncrementChar(1);
-				else if (Input.GetAxis("Vertical") < 0)
-					IncrementChar(-1);
-			}
+			if (this.horizontalInput.IsDown) MovePos(this.horizontalInput.Value);
+			if (this.verticalInput.IsDown) IncrementChar(this.verticalInput.Value);
 
 			StringBuilder sb = new StringBuilder();
 			sb.Append("Enter Name : <mspace=26px>");
@@ -69,14 +68,14 @@ namespace UI
 			if(Input.GetButtonDown("Fire")) SaveScore();
 		}
 
-		private void MovePos(int dir)
+		private void MovePos(float dir)
 		{
-			this.pos = Mathf.Clamp(this.pos + dir, 0, this.playerName.Length - 1);
+			this.pos = Mathf.Clamp(this.pos + Math.Sign(dir), 0, this.playerName.Length - 1);
 		}
 
-		private void IncrementChar(int dir)
+		private void IncrementChar(float dir)
 		{
-			int i = this.playerName[this.pos] + dir;
+			int i = this.playerName[this.pos] + Math.Sign(dir);
 
 			if (i > 90) i = 65;
 			if (i < 65) i = 90;
